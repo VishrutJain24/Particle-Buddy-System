@@ -1,0 +1,46 @@
+int LED = D7;
+void eventPublished(const char *event, const char *data);
+void setup()
+{
+    Particle.subscribe("Deakin_RIOT_SIT210_Photon_Buddy", eventPublished);
+    
+    pinMode(LED, OUTPUT);
+    digitalWrite(LED, LOW);
+    
+}
+// Particle.subscribe handlers don't return anything; they take event name and data
+void eventPublished(const char *event, const char *data)
+{
+    if (strcmp(data, "pat") == 0)
+    {
+        // shine for longer
+        digitalWrite(LED, HIGH);
+        delay(7000);
+        digitalWrite(LED, LOW);
+    }
+    else if (strcmp(data, "wave") == 0)
+    {
+        //flash LED   
+        digitalWrite(LED, HIGH);
+        delay(500);
+        digitalWrite(LED, LOW);
+        delay(100);
+        digitalWrite(LED, HIGH);
+        delay(500);
+        digitalWrite(LED, LOW);
+        delay(100);
+        digitalWrite(LED, HIGH);
+        delay(500);
+        digitalWrite(LED, LOW);
+       
+    }
+    else
+    {
+        // nothing
+    }
+}
+
+void loop()
+{
+   // do nothing
+}
